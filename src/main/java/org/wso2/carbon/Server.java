@@ -15,7 +15,6 @@
  */
 package org.wso2.carbon;
 
-import com.ibm.wsdl.ServiceImpl;
 import org.apache.cxf.Bus;
 import org.apache.cxf.BusFactory;
 import org.apache.cxf.binding.BindingFactoryManager;
@@ -28,7 +27,9 @@ import org.apache.cxf.interceptor.*;
 import org.apache.cxf.jaxws.JaxWsServerFactoryBean;
 import org.apache.cxf.jaxws.support.JaxWsServiceFactoryBean;
 import org.apache.cxf.service.Service;
+import org.apache.cxf.service.ServiceImpl;
 import org.apache.cxf.service.invoker.BeanInvoker;
+import org.apache.cxf.service.invoker.MethodDispatcher;
 import org.apache.cxf.service.model.EndpointInfo;
 import org.apache.cxf.service.model.ServiceInfo;
 import org.apache.cxf.transport.ConduitInitiatorManager;
@@ -86,6 +87,9 @@ public class Server {
                 localTransport);
 
         Service service = create(bus, resource, ns, serviceName);
+        System.out.println("$$$$$$$$$$$$$" + service.getEndpointInfo(new QName(ns, "HelloPort")).getService().getName());
+
+        ServiceImpl serviceImpl = (ServiceImpl) service;
 
         //test 2
         /*ReflectionServiceFactoryBean bean = new JaxWsServiceFactoryBean();
@@ -106,17 +110,19 @@ public class Server {
         JaxWsServerFactoryBean svrFactory = new JaxWsServerFactoryBean();
         svrFactory.setServiceClass(service.getClass());
         svrFactory.setAddress(address);
-        svrFactory.setServiceBean(service);
+        svrFactory.setServiceBean(serviceImpl);
         svrFactory.setBus(bus);
         svrFactory.getInInterceptors().add(new LoggingInInterceptor());
         svrFactory.getOutInterceptors().add(new LoggingOutInterceptor());
         svrFactory.create();
+        //Endpoint.publish(address, serviceImpl);
     }
 
     public Service create(Bus bus, URL wsdl, String ns, String serviceName) {
         WSDLServiceFactory factory = new WSDLServiceFactory(bus, wsdl.toString(), new QName(ns, serviceName));
         Service service = factory.create();
-        initializeSoapInterceptors(service, bus);
+
+        //initializeSoapInterceptors(service, bus);
         //updateEndpointInfo(service);
         return service;
     }
@@ -134,7 +140,7 @@ public class Server {
 
     }*/
 
-    // do not handle any payload information here
+    /*// do not handle any payload information here
     private void initializeSoapInterceptors(Service service, Bus bus) {
         //service.getInInterceptors().add(new DataInInterceptor());
         service.getInInterceptors().add(new ReadHeadersInterceptor(bus));
@@ -154,7 +160,7 @@ public class Server {
         service.getOutInterceptors().add(new SoapPreProtocolOutInterceptor());
         service.getOutInterceptors().add(new SoapOutInterceptor(bus));
         service.getOutFaultInterceptors().add(new SoapOutInterceptor(bus));
-    }
+    }*/
 
     public static void main(String args[]) throws Exception {
         new Server();

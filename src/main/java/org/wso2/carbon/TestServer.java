@@ -21,14 +21,17 @@ import org.apache.cxf.binding.BindingFactoryManager;
 import org.apache.cxf.binding.soap.SoapBindingFactory;
 import org.apache.cxf.frontend.ServerFactoryBean;
 import org.apache.cxf.service.Service;
+import org.apache.cxf.service.ServiceImpl;
 import org.apache.cxf.wsdl11.WSDLServiceFactory;
 
 import java.net.URL;
 
+/**
+* Reference: https://github.com/wso2/carbon-mediation/blob/22fb8c92f2d7dbb90bc3faadf43b26308d9fda8e/components/inbound-endpoints/org.wso2.carbon.inbound.endpoint.ext.wsrm/src/main/java/org/wso2/carbon/inbound/endpoint/ext/wsrm/InboundRMHttpListener.java
+*/
 public class TestServer {
     protected TestServer() throws Exception{
         URL resource = getClass().getResource("/HelloWorld2.wsdl");
-        URL busFile = getClass().getResource("/cxf-conf.xml");
 
         //Generating the bus configurations
         Bus bus;
@@ -39,13 +42,6 @@ public class TestServer {
                 .registerBindingFactory("http://schemas.xmlsoap.org/wsdl/soap/", bindingFactory);
         bus.getExtension(BindingFactoryManager.class)
                 .registerBindingFactory("http://schemas.xmlsoap.org/wsdl/soap/http", bindingFactory);
-
-
-
-
-        //Create the CXF Bus using the server config file
-        /*SpringBusFactory bf = new SpringBusFactory();
-        bus = bf.createBus(busFile.toString());*/
 
 
         //Extracting the wsdl content

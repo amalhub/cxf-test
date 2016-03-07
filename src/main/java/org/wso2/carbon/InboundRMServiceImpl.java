@@ -19,4 +19,5 @@ package org.wso2.carbon;
  * Dummy class to act as the service class of the CXF endpoint
  */
 public class InboundRMServiceImpl {
+
 }

@@ -28,6 +28,7 @@ import org.apache.cxf.phase.Phase;
 import org.apache.cxf.wsdl.interceptors.DocLiteralInInterceptor;
 import org.apache.log4j.Logger;
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
@@ -56,6 +57,8 @@ public class RequestInterceptor extends AbstractPhaseInterceptor<Message> {
     }
 
     public void handleMessage(Message message) throws Fault {
+        //testing purpose, todo: link with log4j
+        System.out.println("################## Service Invoked ###############");
         /*
          * Remove the unnecessary interceptors from the message's interceptor chain
          */
@@ -64,7 +67,8 @@ public class RequestInterceptor extends AbstractPhaseInterceptor<Message> {
 
         try {
             String myString = IOUtils.toString(is, "UTF-8");
-            logger.info(myString);
+            //testing purpose, todo: link with log4j
+            System.out.println(myString);
         } catch (IOException e) {
             logger.error("Error reading message from message content", e);
         }

@@ -37,6 +37,8 @@ public class ResponseInterceptor extends AbstractPhaseInterceptor<Message> {
     }
 
     public void handleMessage(Message message) throws Fault {
+        //testing purpose, todo: link with log4j
+        System.out.println("########### Sending Response #################");
         boolean isOutbound = message == message.getExchange().getOutMessage()
                 || message == message.getExchange().getOutFaultMessage();
 

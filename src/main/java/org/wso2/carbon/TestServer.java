@@ -62,6 +62,13 @@ public class TestServer {
         serverFactory.setInvoker(invoker);
 
         serverFactory.setServiceBean(serviceImpl);
+        serverFactory.setDataBinding(service.getDataBinding());
+        serverFactory.setServiceName(service.getName());
+        serverFactory.setBindingId(service.getServiceInfos().get(0).getBindings().iterator().next().getBindingId());
+        serverFactory.setWsdlLocation(resource.getPath());
+
+        serverFactory.setEndpointName(service.getServiceInfos().iterator().next().getEndpoints().iterator().next().getName());
+
 
         String address = service.getServiceInfos().get(0).getEndpoints().iterator().next().getAddress();
         //set the host and port to listen to

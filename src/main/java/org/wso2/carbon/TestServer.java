@@ -49,7 +49,7 @@ public class TestServer {
         Service service = factory.create();
 
         //Create a dummy class to act as the service class of the CXF endpoint
-        InboundRMServiceImpl RMServiceImpl = new InboundRMServiceImpl();
+        InboundRMServiceImpl serviceImpl = new InboundRMServiceImpl();
         ServerFactoryBean serverFactory = new ServerFactoryBean();
         serverFactory.setBus(bus);
 
@@ -57,11 +57,11 @@ public class TestServer {
         serverFactory.getInInterceptors().add(new RequestInterceptor());
         //Add an interceptor to alter the outgoing messages
         serverFactory.getOutInterceptors().add(new ResponseInterceptor());
-        //Add an invoker to extract the message and inject to Synapse
-        InboundRMHttpInvoker invoker = new InboundRMHttpInvoker(RMServiceImpl);
+        //Add an invoker to extract the message and inject to ODE
+        InboundRMHttpInvoker invoker = new InboundRMHttpInvoker(serviceImpl);
         serverFactory.setInvoker(invoker);
 
-        serverFactory.setServiceBean(RMServiceImpl);
+        serverFactory.setServiceBean(serviceImpl);
 
         String address = service.getServiceInfos().get(0).getEndpoints().iterator().next().getAddress();
         //set the host and port to listen to

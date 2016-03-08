@@ -19,9 +19,9 @@ import org.apache.cxf.Bus;
 import org.apache.cxf.BusFactory;
 import org.apache.cxf.binding.BindingFactoryManager;
 import org.apache.cxf.binding.soap.SoapBindingFactory;
+import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.frontend.ServerFactoryBean;
 import org.apache.cxf.service.Service;
-import org.apache.cxf.service.ServiceImpl;
 import org.apache.cxf.wsdl11.WSDLServiceFactory;
 
 import java.net.URL;
@@ -66,7 +66,7 @@ public class TestServer {
         String address = service.getServiceInfos().get(0).getEndpoints().iterator().next().getAddress();
         //set the host and port to listen to
         serverFactory.setAddress(address);
-        org.apache.cxf.endpoint.Server server = serverFactory.create();
+        Server server = serverFactory.create();
 
 
     }

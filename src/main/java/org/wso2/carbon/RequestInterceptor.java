@@ -64,7 +64,7 @@ public class RequestInterceptor extends AbstractPhaseInterceptor<Message> {
 
         try {
             String myString = IOUtils.toString(is, "UTF-8");
-            System.out.println(myString);
+            logger.info(myString);
         } catch (IOException e) {
             logger.error("Error reading message from message content", e);
         }

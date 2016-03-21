@@ -15,6 +15,8 @@
  */
 package org.wso2.carbon;
 
+import org.apache.cxf.continuations.Continuation;
+import org.apache.cxf.continuations.ContinuationProvider;
 import org.apache.cxf.message.Exchange;
 import org.apache.cxf.service.invoker.AbstractInvoker;
 import org.apache.log4j.Logger;
@@ -44,7 +46,30 @@ public class InboundRMHttpInvoker extends AbstractInvoker {
 
     @Override
     public Object getServiceObject(Exchange exchange) {
+        return bean;
+    }
+
+    /**
+     * This is where the the incoming request from the CXF Bus is paused and handed to ODE
+     *
+     * @param exchange exchange that contains the messages
+     * @param o        the dummy back end object
+     * @return null
+     */
+    @Override
+    public Object invoke(Exchange exchange, Object o) {
+        System.out.println("$$$$$$$$$$$$ Invoker $$$$$$$$$$$$$$");
+        ContinuationProvider continuationProvider = (ContinuationProvider) exchange.getInMessage().get(ContinuationProvider.class.getName());
+        final Continuation continuation = continuationProvider.getContinuation();
+
+        synchronized (continuation) {
+
+        }
         return null;
+    }
+
+    public ExecutorService getExecutorService() {
+        return executorService;
     }
 
     public final void setExecutorService(ExecutorService executorService) {

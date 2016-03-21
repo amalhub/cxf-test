@@ -31,9 +31,7 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This interceptor intercepts all incoming message and removes Interceptors from the interceptor
@@ -59,10 +57,12 @@ public class RequestInterceptor extends AbstractPhaseInterceptor<Message> {
     public void handleMessage(Message message) throws Fault {
         //testing purpose, todo: link with log4j
         System.out.println("################## Service Invoked ###############");
+
         /*
          * Remove the unnecessary interceptors from the message's interceptor chain
          */
         this.removeInterceptors(interceptorSet, message);
+
         InputStream is = message.getContent(InputStream.class);
 
         try {

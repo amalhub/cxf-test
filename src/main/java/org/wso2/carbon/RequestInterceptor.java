@@ -15,23 +15,27 @@
  */
 package org.wso2.carbon;
 
-import org.apache.cxf.binding.soap.interceptor.MustUnderstandInterceptor;
-import org.apache.cxf.binding.soap.interceptor.SoapActionInInterceptor;
-import org.apache.cxf.binding.soap.interceptor.SoapHeaderInterceptor;
+import org.apache.cxf.binding.soap.interceptor.*;
+import org.apache.cxf.frontend.WSDLGetInterceptor;
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.interceptor.Interceptor;
+import org.apache.cxf.interceptor.OneWayProcessorInterceptor;
+import org.apache.cxf.interceptor.StaxInInterceptor;
 import org.apache.cxf.io.CachedOutputStream;
+import org.apache.cxf.jaxb.attachment.JAXBAttachmentSchemaValidationHack;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
+import org.apache.cxf.transport.https.CertConstraintsInterceptor;
 import org.apache.cxf.wsdl.interceptors.DocLiteralInInterceptor;
 import org.apache.log4j.Logger;
 
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * This interceptor intercepts all incoming message and removes Interceptors from the interceptor
@@ -52,6 +56,15 @@ public class RequestInterceptor extends AbstractPhaseInterceptor<Message> {
         interceptorSet.add(SoapActionInInterceptor.class);
         interceptorSet.add(MustUnderstandInterceptor.class);
         interceptorSet.add(SoapHeaderInterceptor.class);
+        interceptorSet.add(OneWayProcessorInterceptor.class);
+        interceptorSet.add(CertConstraintsInterceptor.class);
+        interceptorSet.add(StaxInInterceptor.class);
+        interceptorSet.add(WSDLGetInterceptor.class);
+        interceptorSet.add(CheckFaultInterceptor.class);
+        interceptorSet.add(RPCInInterceptor.class);
+        interceptorSet.add(ReadHeadersInterceptor.class);
+        interceptorSet.add(JAXBAttachmentSchemaValidationHack.class);
+        interceptorSet.add(StartBodyInterceptor.class);
     }
 
     public void handleMessage(Message message) throws Fault {

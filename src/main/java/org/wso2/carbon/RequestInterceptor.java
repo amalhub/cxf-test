@@ -59,7 +59,6 @@ public class RequestInterceptor extends AbstractPhaseInterceptor<Message> {
         interceptorSet.add(OneWayProcessorInterceptor.class);
         interceptorSet.add(CertConstraintsInterceptor.class);
         interceptorSet.add(StaxInInterceptor.class);
-        interceptorSet.add(WSDLGetInterceptor.class);
         interceptorSet.add(CheckFaultInterceptor.class);
         interceptorSet.add(RPCInInterceptor.class);
         interceptorSet.add(ReadHeadersInterceptor.class);

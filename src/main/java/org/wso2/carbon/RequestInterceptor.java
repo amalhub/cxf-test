@@ -16,7 +16,6 @@
 package org.wso2.carbon;
 
 import org.apache.cxf.binding.soap.interceptor.*;
-import org.apache.cxf.frontend.WSDLGetInterceptor;
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.interceptor.Interceptor;

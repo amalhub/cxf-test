@@ -15,6 +15,7 @@
  */
 package org.wso2.carbon;
 
+import org.apache.axiom.soap.SOAPEnvelope;
 import org.apache.cxf.binding.soap.interceptor.SoapPreProtocolOutInterceptor;
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.cxf.interceptor.Fault;
@@ -23,8 +24,10 @@ import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
 import org.apache.log4j.Logger;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Intercepts the outbound message and sets the SOAPBody and some of the SOAPHeaders
@@ -42,14 +45,33 @@ public class ResponseInterceptor extends AbstractPhaseInterceptor<Message> {
         boolean isOutbound = message == message.getExchange().getOutMessage()
                 || message == message.getExchange().getOutFaultMessage();
 
+        //If the response came through Synapse, it is handled here
         if (isOutbound) {
-            InputStream is = message.getContent(InputStream.class);
+
+            OutputStream os = message.getContent(OutputStream.class);
+
             try {
-                String myString = IOUtils.toString(is, "UTF-8");
-                logger.info(myString);
-            } catch (IOException e) {
-                logger.error("Error reading message from message content", e);
+                String response = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">\n" +
+                        "   <soapenv:Header/>\n" +
+                        "   <soapenv:Body>\n" +
+                        "         <result>Success</result>\n" +
+                        "   </soapenv:Body>\n" +
+                        "</soapenv:Envelope>";
+                InputStream is = new ByteArrayInputStream(response.getBytes());
+
+                SOAPEnvelope cxfOutEnvelope = SOAPEnvelopeCreator.getSOAPEnvelopeFromStream(is);
+
+                InputStream replaceInStream = org.apache.commons.io.IOUtils.toInputStream(cxfOutEnvelope.toString(), "UTF-8");
+                IOUtils.copy(replaceInStream, os);
+                os.flush();
+                message.setContent(OutputStream.class, os);
+            } catch (IOException ioe) {
+                logger.error("Error while processing the response message through the response interceptor", ioe);
+                throw new Fault(new Exception("Error while processing the response"));
+            } finally {
+                org.apache.commons.io.IOUtils.closeQuietly(os);
             }
         }
     }
+
 }

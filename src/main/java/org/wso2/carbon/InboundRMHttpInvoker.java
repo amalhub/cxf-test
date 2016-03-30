@@ -58,13 +58,16 @@ public class InboundRMHttpInvoker extends AbstractInvoker {
      */
     @Override
     public Object invoke(Exchange exchange, Object o) {
+        //testing purpose, todo: link with log4j
         System.out.println("$$$$$$$$$$$$ Invoker $$$$$$$$$$$$$$");
+
         ContinuationProvider continuationProvider = (ContinuationProvider) exchange.getInMessage().get(ContinuationProvider.class.getName());
         final Continuation continuation = continuationProvider.getContinuation();
 
         synchronized (continuation) {
 
         }
+
         return null;
     }
 

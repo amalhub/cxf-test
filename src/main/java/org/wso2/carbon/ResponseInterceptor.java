@@ -48,17 +48,16 @@ public class ResponseInterceptor extends AbstractPhaseInterceptor<Message> {
         //If the response came through Synapse, it is handled here
         if (isOutbound) {
 
+            String response = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">\n" +
+                    "   <soapenv:Header/>\n" +
+                    "   <soapenv:Body>\n" +
+                    "         <result>Success</result>\n" +
+                    "   </soapenv:Body>\n" +
+                    "</soapenv:Envelope>";
+            InputStream is = new ByteArrayInputStream(response.getBytes());
             OutputStream os = message.getContent(OutputStream.class);
 
             try {
-                String response = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">\n" +
-                        "   <soapenv:Header/>\n" +
-                        "   <soapenv:Body>\n" +
-                        "         <result>Success</result>\n" +
-                        "   </soapenv:Body>\n" +
-                        "</soapenv:Envelope>";
-                InputStream is = new ByteArrayInputStream(response.getBytes());
-
                 SOAPEnvelope cxfOutEnvelope = SOAPEnvelopeCreator.getSOAPEnvelopeFromStream(is);
 
                 InputStream replaceInStream = org.apache.commons.io.IOUtils.toInputStream(cxfOutEnvelope.toString(), "UTF-8");
@@ -70,6 +69,7 @@ public class ResponseInterceptor extends AbstractPhaseInterceptor<Message> {
                 throw new Fault(new Exception("Error while processing the response"));
             } finally {
                 org.apache.commons.io.IOUtils.closeQuietly(os);
+                org.apache.commons.io.IOUtils.closeQuietly(is);
             }
         }
     }

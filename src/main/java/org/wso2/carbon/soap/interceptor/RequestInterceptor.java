@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.wso2.carbon;
+package org.wso2.carbon.soap.interceptor;
 
 import org.apache.cxf.binding.soap.interceptor.*;
 import org.apache.cxf.helpers.IOUtils;

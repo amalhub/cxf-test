@@ -13,13 +13,15 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.wso2.carbon;
+package org.wso2.carbon.soap.invoker;
 
 import org.apache.axiom.soap.SOAPEnvelope;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.message.Exchange;
 import org.apache.cxf.message.Message;
 import org.apache.log4j.Logger;
+import org.wso2.carbon.soap.util.SOAPEnvelopeCreator;
+import org.wso2.carbon.soap.interceptor.RequestInterceptor;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

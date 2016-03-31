@@ -16,7 +16,7 @@
 * under the License.
 */
 
-package org.wso2.carbon;
+package org.wso2.carbon.soap.util;
 
 import org.apache.axiom.om.OMDocument;
 import org.apache.axiom.om.OMXMLBuilderFactory;

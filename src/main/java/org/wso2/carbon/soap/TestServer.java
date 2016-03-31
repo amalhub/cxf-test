@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.wso2.carbon;
+package org.wso2.carbon.soap;
 
 import org.apache.cxf.Bus;
 import org.apache.cxf.BusFactory;
@@ -23,6 +23,10 @@ import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.frontend.ServerFactoryBean;
 import org.apache.cxf.service.Service;
 import org.apache.cxf.wsdl11.WSDLServiceFactory;
+import org.wso2.carbon.soap.interceptor.RequestInterceptor;
+import org.wso2.carbon.soap.interceptor.ResponseInterceptor;
+import org.wso2.carbon.soap.invoker.InboundRMHttpInvoker;
+import org.wso2.carbon.soap.invoker.InboundRMServiceImpl;
 
 import java.net.URL;
 

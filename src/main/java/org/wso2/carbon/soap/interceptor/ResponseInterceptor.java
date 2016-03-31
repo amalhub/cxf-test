@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.wso2.carbon;
+package org.wso2.carbon.soap.interceptor;
 
 import org.apache.axiom.soap.SOAPEnvelope;
 import org.apache.cxf.binding.soap.interceptor.RPCOutInterceptor;
@@ -27,6 +27,7 @@ import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
 import org.apache.log4j.Logger;
+import org.wso2.carbon.soap.invoker.ODEInvoker;
 
 import java.io.IOException;
 import java.io.InputStream;

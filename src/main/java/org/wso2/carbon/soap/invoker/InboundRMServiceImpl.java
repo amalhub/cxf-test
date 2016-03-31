@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.wso2.carbon;
+package org.wso2.carbon.soap.invoker;
 
 /**
  * Dummy class to act as the service class of the CXF endpoint

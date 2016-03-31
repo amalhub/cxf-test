@@ -65,7 +65,7 @@ public class InboundRMHttpInvoker extends AbstractInvoker {
         final Continuation continuation = continuationProvider.getContinuation();
 
         synchronized (continuation) {
-
+            ODEInvoker.invoke(exchange);
         }
 
         return null;

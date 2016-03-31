@@ -19,7 +19,6 @@ import org.apache.cxf.binding.soap.interceptor.*;
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.interceptor.Interceptor;
-import org.apache.cxf.interceptor.OneWayProcessorInterceptor;
 import org.apache.cxf.interceptor.StaxInInterceptor;
 import org.apache.cxf.io.CachedOutputStream;
 import org.apache.cxf.jaxb.attachment.JAXBAttachmentSchemaValidationHack;
@@ -55,10 +54,8 @@ public class RequestInterceptor extends AbstractPhaseInterceptor<Message> {
         interceptorSet.add(SoapActionInInterceptor.class);
         interceptorSet.add(MustUnderstandInterceptor.class);
         interceptorSet.add(SoapHeaderInterceptor.class);
-        interceptorSet.add(OneWayProcessorInterceptor.class);
         interceptorSet.add(CertConstraintsInterceptor.class);
         interceptorSet.add(StaxInInterceptor.class);
-        interceptorSet.add(CheckFaultInterceptor.class);
         interceptorSet.add(RPCInInterceptor.class);
         interceptorSet.add(ReadHeadersInterceptor.class);
         interceptorSet.add(JAXBAttachmentSchemaValidationHack.class);

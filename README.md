@@ -1,8 +1,6 @@
-# cxf-test
+# C5 - Enabling SOAP support for BPEL with Apache CXF integration
 
-C5 - Enabling SOAP support for BPEL with Apache CXF integration.
-
-The implementation exposes soap webservices by dynamically given wsdl files. 
+The implementation exposes soap webservices by dynamically loaded wsdl files. 
 
 ![Architecture](architecture/CXF-Impl.png) 
 

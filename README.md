@@ -4,7 +4,7 @@ C5 - Enabling SOAP support for BPEL with Apache CXF integration.
 
 The implementation exposes soap webservices by dynamically given wsdl files. 
 
-
+![Architecture](architecture/CXF-Impl.png) 
 
 ## The extension points used in Apache CXF are as follows
 * To intercept the request message we have extended the org.apache.cxf.phase.AbstractPhaseInterceptor<Message> class under RECEIVE phase and have overridden the handleMessage method.

@@ -31,7 +31,7 @@ import org.wso2.carbon.soap.invoker.InboundRMServiceImpl;
 import java.net.URL;
 
 /**
-* Reference: https://github.com/wso2/carbon-mediation/blob/22fb8c92f2d7dbb90bc3faadf43b26308d9fda8e/components/inbound-endpoints/org.wso2.carbon.inbound.endpoint.ext.wsrm/src/main/java/org/wso2/carbon/inbound/endpoint/ext/wsrm/InboundRMHttpListener.java
+* The implementation exposes soap webservices by dynamically loaded wsdl files
 */
 public class TestServer {
     protected TestServer() throws Exception{
